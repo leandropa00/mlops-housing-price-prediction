@@ -1,5 +1,7 @@
 name: pruebas-mlops
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   tests-and-training:
     runs-on: ubuntu-latest
@@ -27,7 +29,7 @@ jobs:
           assert all({"mae", "rmse", "r2"} <= set(r.data.metrics) for r in runs)
           print("MLflow: 3 ejecuciones y métricas verificadas")
           PY
-      - name: Ejecutar pruebas
+      - name: Ejecutar pruebas y validar el umbral de negocio
         run: pytest -q
       - name: Conservar evidencias de la ejecución
         uses: actions/upload-artifact@v4

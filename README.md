@@ -69,5 +69,9 @@ python -m housing_mlops.drift --recent data/housing.csv
 ## Estado de las evidencias
 Entrenamiento, registro CSV, artefacto y pruebas: ejecutables localmente. API: probada en cliente de integración. Docker: empaquetado listo para construir. GitHub Actions: definido y publicado (estado verificable en Actions). Servicio público: desplegado en Vercel; `POST /predict` verificado externamente el 23 de octubre de 2026.
 
+## Aprobación de cambios y despliegue
+
+Los cambios deben tramitarse mediante Pull Request; el CI valida los umbrales del modelo. Para bloquear merges y la promoción de Vercel hasta que pase el CI, se deben activar las reglas externas descritas en [Flujo CI/CD](docs/ci-cd.md). El archivo YAML por sí solo no establece esas restricciones.
+
 ## Gestión ágil
 Scrum con sprints **simulados** del 17 al 23 y del 24 al 30 de octubre de 2026, retrospectivas de aula. No constituyen evidencia de ejecución histórica. Entrega 31 de octubre de 2026.
