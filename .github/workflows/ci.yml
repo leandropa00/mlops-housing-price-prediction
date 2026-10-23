@@ -3,6 +3,8 @@ on: [push, pull_request]
 jobs:
   tests-and-training:
     runs-on: ubuntu-latest
+    env:
+      MLFLOW_TRACKING_URI: sqlite:///mlflow.db
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -12,13 +14,28 @@ jobs:
       - run: python -m pip install -e '.[test,tracking]'
       - name: Registrar tres experimentos en MLflow
         run: python -m housing_mlops.training
+      - name: Verificar registro de tres ejecuciones en MLflow
+        run: |
+          python - <<'PY'
+          from mlflow import MlflowClient
+          client = MlflowClient(tracking_uri="sqlite:///mlflow.db")
+          exp = client.get_experiment_by_name("precios-vivienda-historicos")
+          assert exp is not None, "No se creó el experimento MLflow"
+          runs = client.search_runs([exp.experiment_id])
+          assert len(runs) == 3, f"Se esperaban 3 ejecuciones: {len(runs)}"
+          assert {r.info.run_name for r in runs} == {"baseline", "ridge", "forest"}
+          assert all({"mae", "rmse", "r2"} <= set(r.data.metrics) for r in runs)
+          print("MLflow: 3 ejecuciones y métricas verificadas")
+          PY
       - name: Ejecutar pruebas
         run: pytest -q
       - name: Conservar evidencias de la ejecución
         uses: actions/upload-artifact@v4
         with:
           name: evidencias-mlops
+          if-no-files-found: error
           path: |
             artifacts/experiments.csv
             artifacts/experiments.json
-            mlruns/
+            artifacts/model.joblib
+            mlflow.db

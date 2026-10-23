@@ -18,10 +18,10 @@ pytest -q
 uvicorn housing_mlops.api:app --reload
 ```
 
-La dependencia `mlflow` es opcional para el entrenamiento en entornos sin conexión. Si está instalada, `training.py` registra además los experimentos en `mlruns/`; el registro portátil `artifacts/experiments.csv` se genera siempre.
+La dependencia `mlflow` es opcional para el entrenamiento en entornos sin conexión. Si está instalada, `training.py` registra los tres experimentos y sus métricas en una base SQLite `mlflow.db` (o en la URI indicada por `MLFLOW_TRACKING_URI`); el registro portátil `artifacts/experiments.csv` se genera siempre. En GitHub Actions, la base SQLite también se conserva como artefacto descargable.
 
 ```bash
-mlflow ui --backend-store-uri ./mlruns
+mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
 ## API
@@ -44,7 +44,7 @@ docker build -t mlops-housing .
 docker run --rm -p 8000:8000 mlops-housing
 ```
 
-`.github/workflows/ci.yml` ejecuta `pytest` en cada push y pull request una vez que el repositorio se publique en GitHub. El pipeline de CI está publicado en GitHub. Consultar la pestaña Actions para verificar su ejecución remota.
+`.github/workflows/ci.yml` entrena, comprueba tres ejecuciones registradas en MLflow y ejecuta `pytest` en cada push y pull request. El pipeline publica los experimentos y la base SQLite como artefactos. Consultar la pestaña Actions para verificar el resultado de cada ejecución.
 
 ## Experimentos y umbral
 Tres algoritmos: baseline mediana, Ridge, Random Forest. Partición fija 80/20 (`random_state=42`); seleccionar por MAE menor. Umbral mínimo propuesto: MAE ≤ 4 (miles de USD históricos) y al menos 25 % de mejora sobre la línea base.

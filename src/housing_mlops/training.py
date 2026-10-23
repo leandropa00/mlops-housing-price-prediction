@@ -56,7 +56,7 @@ def train(dataset: Path | None = None, output: Path | None = None, tracking: boo
         if tracking:
             try:
                 import mlflow
-                mlflow.set_tracking_uri((BASE / "mlruns").as_uri())
+                mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", f"sqlite:///{BASE / 'mlflow.db'}"))
                 mlflow.set_experiment("precios-vivienda-historicos")
                 with mlflow.start_run(run_name=kind):
                     mlflow.log_params({"algorithm":kind, "random_state":42,"test_size":0.2,**params})
