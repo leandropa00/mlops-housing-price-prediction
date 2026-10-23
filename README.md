@@ -24,6 +24,14 @@ La dependencia `mlflow` es opcional para el entrenamiento en entornos sin conexi
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
+## Despliegue público en Vercel
+
+API pública: https://mlops-housing-price-prediction-iota.vercel.app
+
+Documentación Swagger: https://mlops-housing-price-prediction-iota.vercel.app/docs
+
+El 23 de octubre de 2026 se verificó una petición `POST /predict` por HTTPS desde un cliente externo: el servicio respondió con el modelo `forest` y un valor mediano histórico estimado de `28.252` miles de USD para el ejemplo documentado. El resultado no es una tasación actual.
+
 ## API
 
 - `GET /health`: estado y versión del modelo.
@@ -59,7 +67,7 @@ python -m housing_mlops.drift --recent data/housing.csv
 ```
 
 ## Estado de las evidencias
-Entrenamiento, registro CSV, artefacto y pruebas: ejecutables localmente. API: probada en cliente de integración. Docker: empaquetado listo para construir. GitHub Actions: definido y publicado (estado verificable en Actions). Servicio público: no desplegado.
+Entrenamiento, registro CSV, artefacto y pruebas: ejecutables localmente. API: probada en cliente de integración. Docker: empaquetado listo para construir. GitHub Actions: definido y publicado (estado verificable en Actions). Servicio público: desplegado en Vercel; `POST /predict` verificado externamente el 23 de octubre de 2026.
 
 ## Gestión ágil
 Scrum con sprints **simulados** del 17 al 23 y del 24 al 30 de octubre de 2026, retrospectivas de aula. No constituyen evidencia de ejecución histórica. Entrega 31 de octubre de 2026.
