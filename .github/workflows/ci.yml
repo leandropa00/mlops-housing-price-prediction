@@ -2,12 +2,18 @@ name: pruebas-mlops
 on: [push, pull_request]
 permissions:
   contents: read
+  statuses: write
 jobs:
   tests-and-training:
     runs-on: ubuntu-latest
     env:
       MLFLOW_TRACKING_URI: sqlite:///mlflow.db
     steps:
+      - name: 'notify vercel'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: 'vercel/repository-dispatch/actions/status@v1'
+        with:
+          name: 'Vercel - mlops-housing-price-prediction: CI Ready'
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
