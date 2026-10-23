@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlops-housing-price-prediction"
+version = "0.1.0"
+description = "Ejemplo académico MLOps para la mediana histórica de precios de vivienda (Boston Housing)"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.100,<1",
+  "uvicorn>=0.23,<1",
+  "pandas>=2.2,<2.3",
+  "numpy>=2.3,<2.4",
+  "scikit-learn>=1.8,<1.9",
+  "joblib>=1.3,<2",
+  "prometheus-client>=0.17,<1",
+]
+
+[project.optional-dependencies]
+tracking = ["mlflow>=2.10,<4"]
+test = ["pytest>=7.4,<10", "httpx>=0.24,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

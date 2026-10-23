@@ -1,0 +1,27 @@
+{
+  "solicitud": {
+    "crim": 0.00632,
+    "zn": 18,
+    "indus": 2.31,
+    "chas": 0,
+    "nox": 0.538,
+    "rm": 6.575,
+    "age": 65.2,
+    "dis": 4.09,
+    "rad": 1,
+    "tax": 296,
+    "ptratio": 15.3,
+    "lstat": 4.98
+  },
+  "respuesta": {
+    "median_value_thousands_usd_historical": 28.252,
+    "model": "forest",
+    "warning": "Referencia histórica por distrito; no sirve para tasar viviendas actuales."
+  },
+  "http_status": 200,
+  "health": {
+    "status": "ok",
+    "model": "forest",
+    "scope": "historical_district_median"
+  }
+}

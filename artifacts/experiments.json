@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-10-23T15:47:26.127167+00:00",
+  "dataset": "Boston Housing",
+  "objective": "regression on historical district medians",
+  "selected_model": "forest",
+  "selected_mae": 2.04551,
+  "runs": [
+    {
+      "experiment": "baseline",
+      "dataset_rows": 506,
+      "train_rows": 404,
+      "test_rows": 102,
+      "random_state": 42,
+      "test_size": 0.2,
+      "mae": 5.95882,
+      "rmse": 8.56424,
+      "r2": -0.00017,
+      "parameters": "{\"constant\": \"None\", \"quantile\": \"None\", \"strategy\": \"median\"}"
+    },
+    {
+      "experiment": "ridge",
+      "dataset_rows": 506,
+      "train_rows": 404,
+      "test_rows": 102,
+      "random_state": 42,
+      "test_size": 0.2,
+      "mae": 3.07054,
+      "rmse": 4.83223,
+      "r2": 0.68159,
+      "parameters": "{\"alpha\": \"20.0\", \"copy_X\": \"True\", \"fit_intercept\": \"True\", \"max_iter\": \"None\", \"positive\": \"False\", \"random_state\": \"None\", \"solver\": \"auto\", \"tol\": \"0.0001\"}"
+    },
+    {
+      "experiment": "forest",
+      "dataset_rows": 506,
+      "train_rows": 404,
+      "test_rows": 102,
+      "random_state": 42,
+      "test_size": 0.2,
+      "mae": 2.04551,
+      "rmse": 3.13175,
+      "r2": 0.86626,
+      "parameters": "{\"bootstrap\": \"True\", \"ccp_alpha\": \"0.0\", \"criterion\": \"squared_error\", \"max_depth\": \"11\", \"max_features\": \"1.0\", \"max_leaf_nodes\": \"None\", \"max_samples\": \"None\", \"min_impurity_decrease\": \"0.0\", \"min_samples_leaf\": \"2\", \"min_samples_split\": \"2\", \"min_weight_fraction_leaf\": \"0.0\", \"monotonic_cst\": \"None\", \"n_estimators\": \"180\", \"n_jobs\": \"1\", \"oob_score\": \"False\", \"random_state\": \"42\", \"verbose\": \"0\", \"warm_start\": \"False\"}"
+    }
+  ]
+}
