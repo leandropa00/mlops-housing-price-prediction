@@ -40,6 +40,17 @@ def load_model():
     return joblib.load(path)
 
 
+@app.get("/")
+def home():
+    return {
+        "service": "housing-mlops",
+        "status": "ok",
+        "documentation": "/docs",
+        "health": "/health",
+        "scope": "historical_district_median",
+    }
+
+
 @app.get("/health")
 def health():
     try:
